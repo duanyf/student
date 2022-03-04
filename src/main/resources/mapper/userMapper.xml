@@ -1,0 +1,29 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.UserMapper">
+    <!--表字段与实体属性映射-->
+    <resultMap type="com.example.entity.User" id="usermap">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="password" property="password"/>
+        <result column="create_date" property="createDate"/>
+    </resultMap>
+
+    <select id="getAllUser" resultMap="usermap">
+        select * from user
+    </select>
+
+    <insert id="addUser">
+        insert into user (name, password, create_date) values (
+            #{name},#{password}, sysdate()
+        )
+    </insert>
+
+    <update id="updateUserById">
+        update user set name = #{name}, password = #{password} where id = #{id}
+    </update>
+
+    <delete id="delUserById" parameterType="int">
+        delete from user where id = ${id}
+    </delete>
+
+</mapper>
